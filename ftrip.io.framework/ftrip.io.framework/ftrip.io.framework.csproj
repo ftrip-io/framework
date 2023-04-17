@@ -2,6 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/ftrip-io/ftrip.io</PackageProjectUrl>
+    <Copyright>Ftrip.io 2023</Copyright>
+    <Description>Framework with all necessary things for developing ftrip.io microservice. Framework contains the setup for CQRS, Exception Handling, Globalization, Installers, Mapping, Persistence, Swagger, etc.</Description>
+    <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
+    <RepositoryType />
+    <PackageTags>ftrip.io, framework, microservices</PackageTags>
+    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+    <Authors>ftrip.io</Authors>
   </PropertyGroup>
 
   <ItemGroup>
