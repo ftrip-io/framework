@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>ftrip.io</Authors>
+    <Company>ftrip.io</Company>
+    <Description>Framework extensions with all necessary things for JWT authentication.</Description>
+    <Copyright>Ftrip.io 2023</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ftrip-io/ftrip.io</PackageProjectUrl>
+    <PackageReleaseNotes>Initial version</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ftrip.io.framework" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.32" />
+  </ItemGroup>
+
+</Project>
