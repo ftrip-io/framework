@@ -13,10 +13,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ftrip.io.framework" Version="1.0.0" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.34" />
     <PackageReference Include="Hangfire.Core" Version="1.7.34" />
     <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
+    <PackageReference Include="ftrip.io.framework" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <ProjectReference Include="..\..\..\framework\ftrip.io.framework\ftrip.io.framework\ftrip.io.framework.csproj" />
   </ItemGroup>
 
 </Project>
