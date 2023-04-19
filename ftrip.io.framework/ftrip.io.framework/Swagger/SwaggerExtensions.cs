@@ -6,7 +6,7 @@ namespace ftrip.io.framework.Swagger
 {
     public static class SwaggerExtensions
     {
-        public static IApplicationBuilder UseFtripioSwagger(this IApplicationBuilder app, SwaggerSettings swaggerSettings)
+        public static IApplicationBuilder UseFtripioSwagger(this IApplicationBuilder app, SwaggerUISettings swaggerSettings)
         {
             app.UseSwagger(options => { options.RouteTemplate = swaggerSettings.JsonRoute; });
             app.UseSwaggerUI(options =>
@@ -24,9 +24,9 @@ namespace ftrip.io.framework.Swagger
             return app;
         }
 
-        public static IApplicationBuilder UseFtripioSwagger(this IApplicationBuilder app, Action<SwaggerSettings> settingsBuilder)
+        public static IApplicationBuilder UseFtripioSwagger(this IApplicationBuilder app, Action<SwaggerUISettings> settingsBuilder)
         {
-            var swaggerSettings = new SwaggerSettings();
+            var swaggerSettings = new SwaggerUISettings();
             settingsBuilder(swaggerSettings);
 
             app.UseFtripioSwagger(swaggerSettings);
