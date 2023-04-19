@@ -11,10 +11,16 @@ namespace ftrip.io.framework.Swagger
     public class SwaggerInstaller<T> : IInstaller
     {
         private readonly IServiceCollection _services;
+        private readonly SwaggerSettings _settings;
 
-        public SwaggerInstaller(IServiceCollection services)
+        public SwaggerInstaller(IServiceCollection services, SwaggerSettings settings = null)
         {
             _services = services;
+            if (settings == null)
+            {
+                settings = new FromEnvSwaggerSettings();
+            }
+            _settings = settings;
         }
 
         public void Install()
@@ -57,6 +63,11 @@ namespace ftrip.io.framework.Swagger
                 var xmlFile = $"{mainAssemblyName}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
+
+                if (!string.IsNullOrEmpty(_settings.ApiPathPrefix))
+                {
+                    options.DocumentFilter<SwaggerInsertPathPrefixFilter>(_settings.ApiPathPrefix);
+                }
             });
 
             _services.AddSwaggerExamplesFromAssemblyOf<T>();
