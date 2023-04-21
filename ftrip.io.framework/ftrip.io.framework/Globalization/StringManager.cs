@@ -19,5 +19,25 @@ namespace ftrip.io.framework.Globalization
         {
             return _resourceManager.GetString(key, new CultureInfo(_globalizationContext.PreferedLanguage));
         }
+
+        public string Format(string key, params object[] args)
+        {
+            return string.Format(GetString(key), args);
+        }
+
+        public string Format(string key, object arg0, object arg1, object arg2)
+        {
+            return string.Format(GetString(key), arg0, arg1, arg2);
+        }
+
+        public string Format(string key, object arg0, object arg1)
+        {
+            return string.Format(GetString(key), arg0, arg1);
+        }
+
+        public string Format(string key, object arg0)
+        {
+            return string.Format(GetString(key), arg0);
+        }
     }
 }
