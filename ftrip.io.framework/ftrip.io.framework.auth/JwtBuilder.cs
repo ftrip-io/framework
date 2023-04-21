@@ -50,7 +50,7 @@ namespace ftrip.io.framework.auth
         {
             var token = _tokenHandler.CreateToken(_tokenDescriptor);
 
-            return "Bearer " + _tokenHandler.WriteToken(token);
+            return _tokenHandler.WriteToken(token);
         }
     }
 }

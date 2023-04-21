@@ -30,6 +30,8 @@ namespace ftrip.io.framework.Persistence.NoSql.Mongodb.Installers
 
             var mongoDatabase = mongoClient.GetDatabase(_settings.Database);
 
+            _services.AddSingleton(_settings);
+
             _services.AddSingleton(mongoClient);
 
             _services.AddSingleton(mongoDatabase);
