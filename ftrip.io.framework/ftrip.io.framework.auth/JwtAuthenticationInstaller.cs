@@ -1,6 +1,6 @@
 ﻿using ftrip.io.framework.Contexts;
 using ftrip.io.framework.Installers;
-using ftrip.io.framework.Utilities;
+using ftrip.io.framework.Secrets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -27,7 +27,10 @@ namespace ftrip.io.framework.auth
 
         private void AddJwtScheme()
         {
-            var sercet = EnvReader.GetEnvVariableOrThrow("JWT_SECRET");
+            using var serviceProvider = _services.BuildServiceProvider();
+            var secretsManager = serviceProvider.GetService(typeof(ISecretsManager)) as ISecretsManager;
+
+            var sercet = secretsManager.Get("JWT_SECRET");
             var key = Encoding.ASCII.GetBytes(sercet);
 
             _services.AddAuthentication(x =>
