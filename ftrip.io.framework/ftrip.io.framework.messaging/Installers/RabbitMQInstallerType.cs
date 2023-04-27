@@ -1,5 +1,8 @@
-﻿namespace ftrip.io.framework.messaging.Installers
+﻿using System;
+
+namespace ftrip.io.framework.messaging.Installers
 {
+    [Flags]
     public enum RabbitMQInstallerType
     {
         None = 0,
