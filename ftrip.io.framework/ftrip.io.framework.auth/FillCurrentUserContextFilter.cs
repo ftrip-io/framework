@@ -15,7 +15,7 @@ namespace ftrip.io.framework.auth
             var currentUserContext = GetService<CurrentUserContext>(httpContext);
 
             currentUserContext.Id = GetClaimValue(httpContext, ClaimTypes.Name);
-            currentUserContext.Role = GetClaimValue(httpContext, ClaimTypes.Name);
+            currentUserContext.Role = GetClaimValue(httpContext, ClaimTypes.Role);
 
             await next();
         }

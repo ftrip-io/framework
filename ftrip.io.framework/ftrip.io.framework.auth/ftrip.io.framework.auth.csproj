@@ -9,9 +9,9 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ftrip-io/ftrip.io</PackageProjectUrl>
-    <PackageReleaseNotes>Updated ftrip.io.framework to 2.1.0. and JwtBuilder Build change.</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated ftrip.io.framework to 2.2.0. Adapted Installer. Fixed Role in Context.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="ftrip.io.framework" Version="2.1.0" />
+    <PackageReference Include="ftrip.io.framework" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
