@@ -10,9 +10,9 @@
     <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
     <RepositoryType />
     <PackageTags>ftrip.io, framework, microservices</PackageTags>
-    <PackageReleaseNotes>Added SercretsManager with default option to read from Enviroment Variables.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed DeleteRange in Mongodb Repository.</PackageReleaseNotes>
     <Authors>ftrip.io</Authors>
-    <Version>2.2.0</Version>
+    <Version>2.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

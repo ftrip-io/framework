@@ -9,8 +9,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/ftrip-io/ftrip.io</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
-    <PackageReleaseNotes>Updated ftrip.io.framework to 2.2.0. Annotated Types as Flags.</PackageReleaseNotes>
-    <Version>2.2.0</Version>
+    <PackageReleaseNotes>Updated ftrip.io.framework to 2.2.1.</PackageReleaseNotes>
+    <Version>2.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="ftrip.io.framework" Version="2.2.0" />
+    <PackageReference Include="ftrip.io.framework" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
