@@ -64,7 +64,8 @@ namespace ftrip.io.framework.Persistence.NoSql.Mongodb.Repository
 
         public async Task<IEnumerable<T>> DeleteRange(IEnumerable<T> entities, CancellationToken cancellationToken)
         {
-            await _collection.DeleteOneAsync(e => entities.Any(i => e.Id.Equals(i.Id)), cancellationToken);
+            var entityIds = entities.Select(e => e.Id);
+            await _collection.DeleteManyAsync(e => entityIds.Contains(e.Id), cancellationToken);
 
             return await Task.FromResult(entities);
         }
