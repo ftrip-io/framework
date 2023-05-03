@@ -18,29 +18,29 @@ namespace ftrip.io.framework.Persistence.NoSql.Mongodb.Repository
             _collection = mongoDatabase.GetCollection<T>(typeof(T).Name);
         }
 
-        public async Task<IEnumerable<T>> Read(CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<T>> Read(CancellationToken cancellationToken = default)
         {
             return await _collection.AsQueryable().ToListAsync(cancellationToken);
         }
 
-        public async Task<T> Read(TId id, CancellationToken cancellationToken = default)
+        public virtual async Task<T> Read(TId id, CancellationToken cancellationToken = default)
         {
             return await _collection.Find(e => e.Id.Equals(id)).FirstOrDefaultAsync(cancellationToken);
         }
 
-        public IQueryBuilder<T> Query()
+        public virtual IQueryBuilder<T> Query()
         {
             return new QueryBuilder<T>(_collection.AsQueryable());
         }
 
-        public async Task<T> Create(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task<T> Create(T entity, CancellationToken cancellationToken = default)
         {
             await _collection.InsertOneAsync(entity, new InsertOneOptions(), cancellationToken);
 
             return entity;
         }
 
-        public async Task<T> Update(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task<T> Update(T entity, CancellationToken cancellationToken = default)
         {
             var existingEntity = await Read(entity.Id, cancellationToken);
             if (existingEntity != null)
@@ -51,7 +51,7 @@ namespace ftrip.io.framework.Persistence.NoSql.Mongodb.Repository
             return entity;
         }
 
-        public async Task<T> Delete(TId id, CancellationToken cancellationToken = default)
+        public virtual async Task<T> Delete(TId id, CancellationToken cancellationToken = default)
         {
             var existingEntity = await Read(id, cancellationToken);
             if (existingEntity != null)
@@ -62,7 +62,7 @@ namespace ftrip.io.framework.Persistence.NoSql.Mongodb.Repository
             return existingEntity;
         }
 
-        public async Task<IEnumerable<T>> DeleteRange(IEnumerable<T> entities, CancellationToken cancellationToken)
+        public virtual async Task<IEnumerable<T>> DeleteRange(IEnumerable<T> entities, CancellationToken cancellationToken)
         {
             var entityIds = entities.Select(e => e.Id);
             await _collection.DeleteManyAsync(e => entityIds.Contains(e.Id), cancellationToken);
