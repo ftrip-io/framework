@@ -9,8 +9,9 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/ftrip-io/ftrip.io</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
-    <PackageReleaseNotes>Updated ftrip.io.framework to 2.3.0.</PackageReleaseNotes>
-    <Version>2.3.0</Version>
+    <PackageReleaseNotes>Updated ftrip.io.framework to 2.4.0.</PackageReleaseNotes>
+    <Version>2.4.0</Version>
+    <PackageTags>ftrip.io, framework, jobs</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="ftrip.io.framework" Version="2.3.0" />
+    <PackageReference Include="ftrip.io.framework" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
