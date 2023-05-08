@@ -46,6 +46,7 @@ namespace ftrip.io.framework.messaging.Installers
                 if (_types.Has(RabbitMQInstallerType.Consumer))
                 {
                     x.AddConsumers(typeof(T).Assembly);
+                    x.SetKebabCaseEndpointNameFormatter();
                 }
 
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
@@ -56,18 +57,17 @@ namespace ftrip.io.framework.messaging.Installers
                         h.Password(_settings.Password);
                     });
 
+                    config.ConfigureEndpoints(provider);
+
                     if (_types.Has(RabbitMQInstallerType.Consumer))
                     {
                         var consumersForQueue = ConsumersForQueueCreator.FromAssembly<T>();
-                        Console.WriteLine(string.Join(", ", consumersForQueue.Keys));
                         foreach (var queue in consumersForQueue.Keys)
                         {
-                            Console.WriteLine(queue);
                             config.ReceiveEndpoint(queue, ep =>
                             {
                                 ep.PrefetchCount = 16;
                                 ep.UseMessageRetry(r => r.Interval(2, 100));
-                                Console.WriteLine("IMA " + consumersForQueue[queue].Count);
                                 consumersForQueue[queue].ForEach(consumer => ep.ConfigureConsumer(provider, consumer));
                             });
                         }
