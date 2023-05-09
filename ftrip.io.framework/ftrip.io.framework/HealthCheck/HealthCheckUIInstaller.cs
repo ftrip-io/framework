@@ -1,5 +1,6 @@
 ﻿using ftrip.io.framework.Installers;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace ftrip.io.framework.HealthCheck
 {
@@ -14,10 +15,11 @@ namespace ftrip.io.framework.HealthCheck
 
         public void Install()
         {
+            var basePath = Environment.GetEnvironmentVariable("HEALTH_CHECK_BASE_PATH") ?? "";
             _services.AddHealthChecksUI(setup =>
             {
                 setup.SetEvaluationTimeInSeconds(60);
-                setup.AddHealthCheckEndpoint($"Basic Health Check", "/api/health");
+                setup.AddHealthCheckEndpoint($"Basic Health Check", $"{basePath}/api/health");
             }).AddInMemoryStorage();
         }
     }
