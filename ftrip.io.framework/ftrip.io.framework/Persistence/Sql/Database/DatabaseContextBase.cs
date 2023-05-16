@@ -3,6 +3,7 @@ using ftrip.io.framework.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -13,6 +14,7 @@ namespace ftrip.io.framework.Persistence.Sql.Database
     public abstract class DatabaseContextBase<T> : DbContext where T : DbContext
     {
         private readonly CurrentUserContext _currentUserContext;
+        private static readonly HashSet<Type> _physicallyDeletableTypes = new HashSet<Type>();
 
         public DatabaseContextBase(DbContextOptions<T> options, CurrentUserContext currentUserContext) :
             base(options)
@@ -32,7 +34,8 @@ namespace ftrip.io.framework.Persistence.Sql.Database
         private void SetFilterForSoftDeletedEntities(ModelBuilder modelBuilder)
         {
             foreach (var softDeletableTypeBuilder in modelBuilder.Model.GetEntityTypes()
-                .Where(x => typeof(ISoftDeleteable).IsAssignableFrom(x.ClrType)))
+                .Where(x => typeof(ISoftDeleteable).IsAssignableFrom(x.ClrType))
+                .Where(x => !_physicallyDeletableTypes.Contains(x.ClrType)))
             {
                 var parameter = Expression.Parameter(softDeletableTypeBuilder.ClrType, "p");
 
@@ -106,9 +109,18 @@ namespace ftrip.io.framework.Persistence.Sql.Database
             }
         }
 
+        protected void IgnoreSoftDelete(Type type)
+        {
+            _physicallyDeletableTypes.Add(type);
+        }
+
         private void SoftDeleteEntites()
         {
-            var deletedEntities = ChangeTracker.Entries<ISoftDeleteable>().Where(t => t.State == EntityState.Deleted);
+            var deletedEntities = ChangeTracker
+                .Entries<ISoftDeleteable>()
+                .Where(t => t.State == EntityState.Deleted)
+                .Where(t => !_physicallyDeletableTypes.Contains(t.Entity.GetType()));
+
             foreach (var entry in deletedEntities)
             {
                 var entity = entry.Entity;
