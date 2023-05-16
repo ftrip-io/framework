@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.4.1</Version>
+    <Version>2.5.0</Version>
     <Authors>ftrip.io</Authors>
     <Company>ftrip.io</Company>
     <Description>Framework extensions with all necessary things for Emailing.</Description>
@@ -11,7 +11,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/ftrip-io/ftrip.io</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
-    <PackageReleaseNotes>Updated ftrip.io.framework to 2.4.1.</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated ftrip.io.framework to 2.5.0.</PackageReleaseNotes>
     <PackageTags>ftrip.io, framework, email</PackageTags>
   </PropertyGroup>
 
@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="ftrip.io.framework" Version="2.4.1" />
+    <PackageReference Include="ftrip.io.framework" Version="2.5.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
