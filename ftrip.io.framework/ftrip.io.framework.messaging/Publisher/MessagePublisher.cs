@@ -2,6 +2,7 @@
 using ftrip.io.framework.messaging.Configurations;
 using ftrip.io.framework.messaging.Settings;
 using MassTransit;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,14 @@ namespace ftrip.io.framework.messaging.Publisher
     public class MessagePublisher : IMessagePublisher
     {
         private readonly IBus _bus;
+        private readonly ILogger _logger;
         private readonly QueuesForEvent _queuesForEvent;
         private readonly RabbitMQSettings _settings;
 
-        public MessagePublisher(IBus bus, QueuesForEvent queuesForEvent, RabbitMQSettings settings)
+        public MessagePublisher(IBus bus, ILogger logger, QueuesForEvent queuesForEvent, RabbitMQSettings settings)
         {
             _bus = bus;
+            _logger = logger;
             _queuesForEvent = queuesForEvent;
             _settings = settings;
         }
@@ -39,6 +42,8 @@ namespace ftrip.io.framework.messaging.Publisher
         {
             var endPoint = await _bus.GetPublishSendEndpoint<T>();
             await endPoint.Send(message, cancellationToken);
+
+            _logger.Information("Published message to all consumers - Queue[{Queue}]", typeof(T).Name);
         }
 
         private async Task PublishToQueues<T, TId>(List<string> queues, T message, CancellationToken cancellationToken = default) where T : class, IEvent<TId> where TId : IEquatable<TId>
@@ -51,6 +56,8 @@ namespace ftrip.io.framework.messaging.Publisher
 
                 await endPoint.Send(message, cancellationToken);
             }
+
+            _logger.Information("Published message - Queues[{Queues}]", queues);
         }
     }
 }
