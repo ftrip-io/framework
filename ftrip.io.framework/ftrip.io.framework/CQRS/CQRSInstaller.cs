@@ -16,6 +16,7 @@ namespace ftrip.io.framework.CQRS
         public void Install()
         {
             _services.AddMediatR(typeof(T));
+            _services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
         }
     }
 }

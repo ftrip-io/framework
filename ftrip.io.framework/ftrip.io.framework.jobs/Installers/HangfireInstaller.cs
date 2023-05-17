@@ -17,10 +17,11 @@ namespace ftrip.io.framework.jobs.Installers
         public void Install()
         {
             _services.AddHangfire(config =>
-                    config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                     .UseSimpleAssemblyNameTypeSerializer()
                     .UseDefaultTypeSerializer()
-                    .UseMemoryStorage());
+                    .UseMemoryStorage()
+                    .UseSerilogLogProvider());
 
             _services.AddHangfireServer();
         }
