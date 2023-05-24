@@ -1,11 +1,11 @@
 ﻿using ftrip.io.framework.Installers;
 using ftrip.io.framework.messaging.Configurations;
+using ftrip.io.framework.messaging.Filters;
 using ftrip.io.framework.messaging.Logging;
 using ftrip.io.framework.messaging.Publisher;
 using ftrip.io.framework.messaging.Settings;
 using GreenPipes;
 using MassTransit;
-using MassTransit.ExtensionsDependencyInjectionIntegration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -38,7 +38,7 @@ namespace ftrip.io.framework.messaging.Installers
 
             if (_types.Has(RabbitMQInstallerType.Publisher))
             {
-                _services.AddSingleton<IMessagePublisher, MessagePublisher>();
+                _services.AddScoped<IMessagePublisher, MessagePublisher>();
                 var queuesForEvent = QueuesForEventCreator.FromAssembly<T>();
                 _services.AddSingleton(queuesForEvent);
             }
@@ -47,8 +47,8 @@ namespace ftrip.io.framework.messaging.Installers
             {
                 if (_types.Has(RabbitMQInstallerType.Consumer))
                 {
-                   x.AddConsumers(typeof(T).Assembly);
-                   x.SetKebabCaseEndpointNameFormatter();
+                    x.AddConsumers(typeof(T).Assembly);
+                    x.SetKebabCaseEndpointNameFormatter();
                 }
 
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
@@ -61,19 +61,20 @@ namespace ftrip.io.framework.messaging.Installers
 
                     config.ConfigureEndpoints(provider);
                     config.ConnectConsumeObserver(new LoggerObservable());
+                    config.UseConsumeFilter(typeof(PopulateLogContextFilter<>), provider);
 
                     if (_types.Has(RabbitMQInstallerType.Consumer))
                     {
-                       var consumersForQueue = ConsumersForQueueCreator.FromAssembly<T>();
-                       foreach (var queue in consumersForQueue.Keys)
-                       {
-                           config.ReceiveEndpoint(queue, ep =>
-                           {
-                               ep.PrefetchCount = 16;
-                               ep.UseMessageRetry(r => r.Interval(2, 100));
-                               consumersForQueue[queue].ForEach(consumer => ep.ConfigureConsumer(provider, consumer));
-                           });
-                       }
+                        var consumersForQueue = ConsumersForQueueCreator.FromAssembly<T>();
+                        foreach (var queue in consumersForQueue.Keys)
+                        {
+                            config.ReceiveEndpoint(queue, ep =>
+                            {
+                                ep.PrefetchCount = 16;
+                                ep.UseMessageRetry(r => r.Interval(2, 100));
+                                consumersForQueue[queue].ForEach(consumer => ep.ConfigureConsumer(provider, consumer));
+                            });
+                        }
                     }
                 }));
             });

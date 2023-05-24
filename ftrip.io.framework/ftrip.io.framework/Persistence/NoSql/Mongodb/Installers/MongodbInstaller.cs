@@ -4,6 +4,7 @@ using ftrip.io.framework.Persistence.NoSql.Mongodb.Repository;
 using ftrip.io.framework.Persistence.NoSql.Mongodb.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Extensions.DiagnosticSources;
 using MongoDatabaseSettings = ftrip.io.framework.Persistence.NoSql.Mongodb.Settings.MongoDatabaseSettings;
 
 namespace ftrip.io.framework.Persistence.NoSql.Mongodb.Installers
@@ -26,7 +27,9 @@ namespace ftrip.io.framework.Persistence.NoSql.Mongodb.Installers
 
         public void Install()
         {
-            IMongoClient mongoClient = new MongoClient(_settings.GetConnectionString());
+            var clientSettings = MongoClientSettings.FromConnectionString(_settings.GetConnectionString());
+            clientSettings.ClusterConfigurator = cb => cb.Subscribe(new DiagnosticsActivityEventSubscriber());
+            IMongoClient mongoClient = new MongoClient(clientSettings);
 
             var mongoDatabase = mongoClient.GetDatabase(_settings.Database);
 

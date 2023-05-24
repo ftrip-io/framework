@@ -16,7 +16,8 @@ namespace ftrip.io.framework.Logging
 
                 loggerConfig = loggerConfig.MinimumLevel.Information()
                     .Enrich.WithProperty("Application", options.ApplicationName)
-                    .Enrich.WithClientIp(options.ApplicationLabel);
+                    .Enrich.WithClientIp(options.ApplicationLabel)
+                    .Enrich.FromLogContext();
 
                 if (options.WriteToGrafanaLoki)
                 {
