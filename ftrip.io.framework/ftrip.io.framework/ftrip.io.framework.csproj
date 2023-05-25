@@ -10,13 +10,14 @@
     <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
     <RepositoryType />
     <PackageTags>ftrip.io, framework, microservices</PackageTags>
-    <PackageReleaseNotes>Added correlation and tracing.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added tracing proxy interceptor.</PackageReleaseNotes>
     <Authors>ftrip.io</Authors>
-    <Version>2.6.0</Version>
+    <Version>2.6.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <!--Database dependencies-->
+    <PackageReference Include="Castle.Core" Version="5.1.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.32" />
     <PackageReference Include="MongoDB.Driver.Core.Extensions.OpenTelemetry" Version="1.0.0" />

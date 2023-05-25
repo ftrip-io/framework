@@ -9,9 +9,9 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ftrip-io/ftrip.io</PackageProjectUrl>
-    <PackageReleaseNotes>Updated ftrip.io.framework to 2.6.0.</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated ftrip.io.framework to 2.6.1.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.6.0</Version>
+    <Version>2.6.1</Version>
     <PackageTags>ftrip.io, framework, jwt</PackageTags>
   </PropertyGroup>
 
@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="ftrip.io.framework" Version="2.6.0" />
+    <PackageReference Include="ftrip.io.framework" Version="2.6.1" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
