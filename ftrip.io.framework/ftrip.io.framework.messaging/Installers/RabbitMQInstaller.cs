@@ -4,6 +4,7 @@ using ftrip.io.framework.messaging.Filters;
 using ftrip.io.framework.messaging.Logging;
 using ftrip.io.framework.messaging.Publisher;
 using ftrip.io.framework.messaging.Settings;
+using ftrip.io.framework.Proxies;
 using GreenPipes;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +39,7 @@ namespace ftrip.io.framework.messaging.Installers
 
             if (_types.Has(RabbitMQInstallerType.Publisher))
             {
-                _services.AddScoped<IMessagePublisher, MessagePublisher>();
+                _services.AddProxiedScoped<IMessagePublisher, MessagePublisher>();
                 var queuesForEvent = QueuesForEventCreator.FromAssembly<T>();
                 _services.AddSingleton(queuesForEvent);
             }
