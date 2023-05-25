@@ -1,4 +1,5 @@
-﻿using ftrip.io.framework.Installers;
+﻿using Castle.DynamicProxy;
+using ftrip.io.framework.Installers;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry;
 using OpenTelemetry.Resources;
@@ -38,6 +39,8 @@ namespace ftrip.io.framework.Tracing
         {
             var tracer = new Tracer(_tracingSettings.ApplicationLabel, _tracingSettings.ApplicationVersion);
             _services.AddSingleton<ITracer>(tracer);
+            _services.AddScoped<IInterceptor, TracingProxyInterceptor>();
+            _services.AddScoped<TracingProxyInterceptor>();
 
             Action<ResourceBuilder> resourceBuilder = builder =>
             {
