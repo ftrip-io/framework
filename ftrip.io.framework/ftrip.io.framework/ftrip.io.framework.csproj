@@ -10,9 +10,9 @@
     <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
     <RepositoryType />
     <PackageTags>ftrip.io, framework, microservices</PackageTags>
-    <PackageReleaseNotes>Added tracing proxy interceptor.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added metrics. Fixed message in global exception handler.</PackageReleaseNotes>
     <Authors>ftrip.io</Authors>
-    <Version>2.6.1</Version>
+    <Version>2.7.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -49,6 +49,9 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc9.14" />
     <PackageReference Include="OpenTelemetry.Instrumentation.MassTransit" Version="1.0.0-beta.3" />
     <PackageReference Include="OpenTelemetry.Contrib.Instrumentation.EntityFrameworkCore" Version="1.0.0-beta2" />
+    
+    <!--Metrics dependencies-->
+    <PackageReference Include="prometheus-net.AspNetCore" Version="3.5.0" />
 
     <!--CQRS MediatR dependencies-->
     <PackageReference Include="MediatR" Version="11.1.0" />

@@ -42,7 +42,7 @@ namespace ftrip.io.framework.ExceptionHandling.Middleware
             var logger = GetLogger(context);
             logger.Error("Handable exception has occured - Exception[{Exception}], Message[{Message}]", name, message);
 
-            return HandleResponse(context, httpStatusCode, name, message);
+            return HandleResponse(context, httpStatusCode, message, name);
         }
 
         private Task HandleResponseBasedOnUnexpectedException(HttpContext context, Exception exception)
