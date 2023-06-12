@@ -10,9 +10,9 @@
     <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
     <RepositoryType />
     <PackageTags>ftrip.io, framework, microservices</PackageTags>
-    <PackageReleaseNotes>Added tracing proxy interceptor.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added metrics. Fixed message in global exception handler.</PackageReleaseNotes>
     <Authors>ftrip.io</Authors>
-    <Version>2.6.1</Version>
+    <Version>2.7.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
