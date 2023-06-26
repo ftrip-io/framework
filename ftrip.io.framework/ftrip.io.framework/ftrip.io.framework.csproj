@@ -10,9 +10,9 @@
     <RepositoryUrl>https://github.com/ftrip-io/ftrip.io</RepositoryUrl>
     <RepositoryType />
     <PackageTags>ftrip.io, framework, microservices</PackageTags>
-    <PackageReleaseNotes>Added metrics. Fixed message in global exception handler.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added filter for logs.</PackageReleaseNotes>
     <Authors>ftrip.io</Authors>
-    <Version>2.7.0</Version>
+    <Version>2.7.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
