@@ -3,6 +3,7 @@ using Serilog;
 using Serilog.Sinks.Grafana.Loki;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ftrip.io.framework.Logging
 {
@@ -17,7 +18,18 @@ namespace ftrip.io.framework.Logging
                 loggerConfig = loggerConfig.MinimumLevel.Information()
                     .Enrich.WithProperty("Application", options.ApplicationName)
                     .Enrich.WithClientIp(options.ApplicationLabel)
-                    .Enrich.FromLogContext();
+                    .Enrich.FromLogContext()
+                    .Filter.ByExcluding(e =>
+                    {
+                        var requestPath = e.Properties.FirstOrDefault(p => p.Key == "RequestPath").Value?.ToString() ?? string.Empty;
+                        var uri = e.Properties.FirstOrDefault(p => p.Key == "Scope").Value?.ToString() ?? string.Empty;
+
+                        return requestPath.Contains("metrics") ||
+                                requestPath.Contains("swagger") ||
+                                requestPath.Contains("health") ||
+                                requestPath.Contains("vendors-dll.js") ||
+                                uri.Contains("HealthReportCollector");
+                    });
 
                 if (options.WriteToGrafanaLoki)
                 {
